@@ -7,7 +7,7 @@ class TodoList extends Component {
         super(props);
         this.state = {
             inputValue: '',
-            list: ['你好','nihao','halo','hello']
+            list: ['你好','nihao','halo','hello','ohayo']
         }
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleButtonClick = this.handleButtonClick.bind(this)
@@ -15,22 +15,34 @@ class TodoList extends Component {
 
     }
     handleInputChange({target: { value: inputValue }}){
-        this.setState({
-            inputValue
-        })
+        this.setState(() => ({ inputValue }))
     }
     handleButtonClick(){
-        this.setState({
-            list: [...this.state.list, this.state.inputValue],
+        this.setState((prevState) => ({
+            list: [...prevState.list, prevState.inputValue],
             inputValue: ''
-        })
+        }))
     }
     handleItemDelete(index){
-        const list = [...this.state.list]
-        list.splice(index, 1)
-        this.setState({
-            list
+        this.setState((prevState) => {
+            const list = [...prevState.list]
+            list.splice(index, 1)
+            return {list}
         })
+    }
+    getTodoItem(){
+        return (
+            this.state.list.map((item, index) => {
+                return (
+                    <TodoItem 
+                        content={item}
+                        key={index}
+                        index={index}
+                        handleItemDelete={this.handleItemDelete}
+                    />
+                )
+            })
+        )
     }
     render() {
         return (
@@ -46,18 +58,7 @@ class TodoList extends Component {
                     <button onClick={this.handleButtonClick}>submit</button>
                 </div>                
                 <ul>
-                    {
-                        this.state.list.map((item, index) => {
-                            return (
-                                <TodoItem 
-                                    content={item}
-                                    key={index}
-                                    index={index}
-                                    handleItemDelete={this.handleItemDelete}
-                                />
-                            )
-                        })
-                    }
+                    { this.getTodoItem() }
                 </ul>
             </Fragment>
         );
