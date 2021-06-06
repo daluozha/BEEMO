@@ -1,17 +1,17 @@
-import { list } from "postcss";
 import React, { Component, Fragment } from "react";
+import './style.css'
+import TodoItem from "./TodoItem";
 
 class TodoList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             inputValue: '',
-            list: []
-            // eslint-disable-next-line 
+            list: ['你好','nihao','halo','hello']
         }
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleButtonClick = this.handleButtonClick.bind(this)
-        // this.handleItemDelete = this.handleItemDelete.bind(this)
+        this.handleItemDelete = this.handleItemDelete.bind(this)
 
     }
     handleInputChange({target: { value: inputValue }}){
@@ -36,7 +36,10 @@ class TodoList extends Component {
         return (
             <Fragment>
                 <div>
+                    <label htmlFor="insertArea">input: </label>
                     <input 
+                        id="insertArea"
+                        className="input"
                         value={this.state.inputValue} 
                         onChange={this.handleInputChange}
                     />
@@ -46,12 +49,12 @@ class TodoList extends Component {
                     {
                         this.state.list.map((item, index) => {
                             return (
-                                <li 
+                                <TodoItem 
+                                    content={item}
                                     key={index}
-                                    onClick={this.handleItemDelete.bind(this, index)}
-                                >
-                                    {index} - {item}
-                                </li>
+                                    index={index}
+                                    handleItemDelete={this.handleItemDelete}
+                                />
                             )
                         })
                     }
