@@ -1,22 +1,64 @@
+import { list } from "postcss";
+import React, { Component, Fragment } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class TodoList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            inputValue: '',
+            list: []
+            // eslint-disable-next-line 
+        }
+        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleButtonClick = this.handleButtonClick.bind(this)
+        // this.handleItemDelete = this.handleItemDelete.bind(this)
+
+    }
+    handleInputChange({target: { value: inputValue }}){
+        this.setState({
+            inputValue
+        })
+    }
+    handleButtonClick(){
+        this.setState({
+            list: [...this.state.list, this.state.inputValue],
+            inputValue: ''
+        })
+    }
+    handleItemDelete(index){
+        const list = [...this.state.list]
+        list.splice(index, 1)
+        this.setState({
+            list
+        })
+    }
+    render() {
+        return (
+            <Fragment>
+                <div>
+                    <input 
+                        value={this.state.inputValue} 
+                        onChange={this.handleInputChange}
+                    />
+                    <button onClick={this.handleButtonClick}>submit</button>
+                </div>                
+                <ul>
+                    {
+                        this.state.list.map((item, index) => {
+                            return (
+                                <li 
+                                    key={index}
+                                    onClick={this.handleItemDelete.bind(this, index)}
+                                >
+                                    {index} - {item}
+                                </li>
+                            )
+                        })
+                    }
+                </ul>
+            </Fragment>
+        );
+    }
 }
 
-export default App;
+export default TodoList;
