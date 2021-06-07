@@ -3,6 +3,8 @@ import './style.css'
 import TodoItem from "./TodoItem";
 import axios from "axios";
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import 'antd/dist/antd.css'
+import { Input, Button, List } from 'antd'
 
 class TodoList extends Component {
     constructor(props) {
@@ -77,23 +79,33 @@ class TodoList extends Component {
             <Fragment>
                 <div>
                     <label htmlFor="insertArea">input: </label>
-                    <input 
+                    <Input 
+                        placeholder="todo info"
+                        style={{width: '300px', margin: '10px'}}
                         id="insertArea"
                         className="input"
                         value={this.state.inputValue} 
                         onChange={this.handleInputChange}
                     />
-                    <button onClick={this.handleButtonClick}>submit</button>
+                    <Button 
+                        onClick={this.handleButtonClick}
+                        type="primary"
+                    >
+                        submit
+                    </Button>
 
                 </div>                
                 <ul>
-                    <TransitionGroup
-
-                    >
+                    <TransitionGroup>
                         { this.getTodoItem() }
                     </TransitionGroup>
                 </ul>
-
+                <List 
+                    style={{width: '450px'}}
+                    bordered
+                    dataSource={this.state.list}
+                    renderItem={item => (<List.Item>{item}</List.Item>)}
+                />
                 <div>
                     <CSSTransition
                         in={this.state.show}
