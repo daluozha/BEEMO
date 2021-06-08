@@ -7,7 +7,7 @@ import 'antd/dist/antd.css'
 import { Input, Button, List } from 'antd'
 import store from "./store";
 import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM } from './store/actionTypes'
-import { getInputChangeAction } from './store/actionCreators'
+import { getInputChangeAction, getTodoList } from './store/actionCreators'
 import TodoListUI from './TodoListUI'
 
 class TodoList extends Component {
@@ -162,6 +162,9 @@ class TodoList extends Component {
         // }).catch((err) => {
         //     console.error(err)
         // })
+
+        const action = getTodoList()
+        store.dispatch(action)
     }
 }
 

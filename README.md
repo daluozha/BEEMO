@@ -40,3 +40,7 @@
 - store.dispatch
 - store.getState
 - store.subscribe
+
+## Redux 的中间件
+- Redux-thunk
+- Redux-saga
