@@ -8,6 +8,7 @@ import { Input, Button, List } from 'antd'
 import store from "./store";
 import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM } from './store/actionTypes'
 import { getInputChangeAction } from './store/actionCreators'
+import TodoListUI from './TodoListUI'
 
 class TodoList extends Component {
     constructor(props) {
@@ -62,35 +63,12 @@ class TodoList extends Component {
                     </CSSTransition>
                     <button onClick={this.handleToggle}>toggle</button>
                 </div>
-                <div>
-                    <label htmlFor="insertArea2">input: </label>
-                    <Input 
-                        placeholder="todo info2"
-                        style={{width: '300px', margin: '10px'}}
-                        id="insertArea2"
-                        className="input"
-                        value={this.state.value} 
-                        onChange={this.handleInputChange1}
-                    />
-                    <Button 
-                        onClick={this.handleButtonClick1}
-                        type="primary"
-                    >
-                        submit
-                    </Button>
-
-                </div>  
-                <List 
-                    style={{width: '450px'}}
-                    bordered
-                    dataSource={this.state.data}
-                    renderItem={(item, index) => (
-                        <List.Item 
-                            onClick={this.handleItemDelete1.bind(this, index)}
-                        >
-                            {item}
-                        </List.Item>
-                    )}
+                <TodoListUI 
+                    value={this.state.value}
+                    handleInputChange1={this.handleInputChange1}
+                    handleButtonClick1={this.handleButtonClick1}
+                    data={this.state.data}
+                    handleItemDelete1={this.handleItemDelete1}
                 />
             </Fragment>
         );
@@ -103,6 +81,7 @@ class TodoList extends Component {
         this.handleToggle = this.handleToggle.bind(this)
         this.handleButtonClick1 = this.handleButtonClick1.bind(this)
         this.handleInputChange1 = this.handleInputChange1.bind(this)
+        this.handleItemDelete1= this.handleItemDelete1.bind(this)
     }
     handleStoreChange() {
         this.setState(store.getState())
