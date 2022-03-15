@@ -1,6 +1,6 @@
 # BEEMO
 
-一个基于 React 的练习 demo
+一个基于 React + Vite 的练习 demo
 
 ## React 的一些特点
 
@@ -11,6 +11,12 @@
 - 视图层框架(大型数据通信需要借助别的框架)
 - 函数式编程(方便自动化测试)
 
+## Vite
+基本概念：一个新型的打包工具，Vite 由两部分组成
+- 一个开发服务，服务于开发环境，ESM + HMR
+- 一套构建指令，服务于生产环境，用 Rollup 打包
+注：什么是打包？是指使用工具抓取、处理并将我们的源码模块串联成可以在浏览器中运行的文件，常用的前端打包构建工具：Webpack、Rollup、Parcel、gulp。
+设计思想：
 
 ## React 数据视图更新原理
 
@@ -42,5 +48,6 @@
 - store.subscribe
 
 ## Redux 的中间件
+
 - Redux-thunk
 - Redux-saga
